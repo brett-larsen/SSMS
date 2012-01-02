@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, SSMSActivity!</string>
+    <string name="app_name">SSMS</string>
+    <string name="load">Loading Contacts</string>
+    <string name="send_button">Send</string>
+    <string name="start_exchange">Exchange Keys</string>
+    <string name="exchange_info">Before you can securely communicate with another phone, you must exchange security keys. Press \"Exchange Keys\" to initiate this transaction. Once it is successfully completed you will be taken to the messaging screen.</string>
+    <string name="number_prompt">Choose a number</string>
+    <string name="clear_data_button">Clear Data</string>
+    <string name="key_info_button">View Key Info</string>
+    <string name="createPassLabel1">"Enter password: "</string>
+    <string name="createPassLabel2">"Verify Password: "</string>
+    <string name="createPasswordButtonLabel">Submit</string>
+    <string name="password_info">Your password must be typed in every 10 minutes of use. If you forget your password or incorrectly type it 10 consecutive times, all of your messages and security keys stored in this app will be deleted and you can create a new password. 
+        Also, all text messages (in this app) are automatically deleted after 24 hours.</string>
+
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    		xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads" 
+    		android:id="@+id/threadLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<com.google.ads.AdView android:id="@+id/adView"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         ads:adUnitId="a14eff4466160d9"
+                         ads:adSize="BANNER"
+                         />
+
+<Spinner
+    android:id="@+android:id/numberSpinner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+    <ListView
+        android:id="@+id/messageList"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1.07" >
+
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <AutoCompleteTextView
+            android:id="@+id/textField"
+            android:layout_width="244dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/send_button" />
+    </LinearLayout>
+
+</LinearLayout>
