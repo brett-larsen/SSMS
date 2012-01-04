@@ -124,14 +124,20 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
     	FileInputStream fIn = openFileInput("pub");
     	DataInputStream in = new DataInputStream(fIn);
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
-        Log.i(TAG, "pubModulus: " + (pubModulus = br.readLine()));
-        Log.i(TAG, "pubExponent: " + (pubExponent = br.readLine()));
+
+        pubModulus = br.readLine();
+        pubExponent = br.readLine();
+        //Log.i(TAG, "pubModulus: " + pubModulus);
+        //Log.i(TAG, "pubExponent: " + pubExponent);
         //pub = KeyFactory.getInstance("RSA").generatePublic(new RSAPublicKeySpec(new BigInteger(modulusStr, 16), new BigInteger(expStr)));
     	fIn = openFileInput("priv");
     	in = new DataInputStream(fIn);
         br = new BufferedReader(new InputStreamReader(in));
-        Log.i(TAG, "privModulusd: " + (privModulus = br.readLine()));
-        Log.i(TAG, "privExponent: " + ( privExponent = br.readLine()));
+        privModulus = br.readLine();
+        privExponent = br.readLine();
+        //Log.i(TAG, "privModulusd: " + pubModulus);
+        //Log.i(TAG, "privExponent: " + privExponent);
+
         
         if(pubModulus.length() == 0 || pubExponent.length() == 0)
         {
@@ -162,7 +168,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 
 	
 	public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i(TAG, "Received start id " + startId + ": " + intent);
+        //Log.i(TAG, "Received start id " + startId + ": " + intent);
         instance=this;
         //if we were started because the root activity is starting, notify it we are ready to be used now
         if(SSMSActivity.getInstance()!= null)
@@ -239,12 +245,12 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 		       byte[] original =
 		         cipher.doFinal(hexStringToByteArray(messageBody));
 		       messageBody = new String(original);
-		       Log.i(TAG, "Decrypted message: " + messageBody);
+		       //Log.i(TAG, "Decrypted message: " + messageBody);
 		       
 		 }catch(Exception e)
 		 {
 			 e.printStackTrace();
-			 Log.e(TAG, "ERROR decrypting message - recommend clearing data and exchanging keys again");
+			 //Log.e(TAG, "ERROR decrypting message - recommend clearing data and exchanging keys again");
 		 }
 		
 		try {
@@ -255,13 +261,13 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 			message.setFrom(contact);
 			message.setMessage(messageBody);
 			mDao.create(message);
-			Log.i(TAG, "Message converted");
+			//Log.i(TAG, "Message converted");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			Log.e(TAG,e.getMessage());
+			//Log.e(TAG,e.getMessage());
 		}
-		Log.i(TAG, "Message stored");
+		//Log.i(TAG, "Message stored");
 		prune();
 		
 		ThreadActivity thread;
@@ -279,7 +285,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 		List<Contact> contacts = new ArrayList<Contact>();
 		try {
 			
-			Log.i(TAG, "Getting contact for sender: " + address);
+			//Log.i(TAG, "Getting contact for sender: " + address);
 	
 			String[] projection = new String[] {
 					 PhoneLookup.LOOKUP_KEY
@@ -312,7 +318,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 		long now = new Date().getTime();
 		if(lastPrune == null || now - lastPrune.getTime() >  6000 )
 		{
-			Log.i(TAG, "PRUNING");
+			//Log.i(TAG, "PRUNING");
 			try {
 				
 				Dao<Message, Integer> mDao = getHelper().getMessageDao();
@@ -360,7 +366,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 		try {
 			if(getHelper().getDao(Message.class).create(dbMsg) != 1)
 			{
-				Log.e(TAG, "Error storing outgoing SMS in local database - send aborted");
+				//Log.e(TAG, "Error storing outgoing SMS in local database - send aborted");
 				return;
 			}
 		} catch (SQLException e) {
@@ -373,7 +379,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 		String encryptedMessage = null;
 		try{
 			byte[] keyBytes = hexStringToByteArray(contact.getMyKey());
-			Log.i(TAG, "keyBytes.length="+keyBytes.length);
+			//Log.i(TAG, "keyBytes.length="+keyBytes.length);
 		 SecretKeySpec key = new SecretKeySpec(keyBytes, "AES");
 		 Cipher cipher = Cipher.getInstance("AES/ECB/PKCS7Padding", "BC");
 
@@ -388,7 +394,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 		}catch(Exception e)
 		{
 			e.printStackTrace();
-			Log.i(TAG, "Encrytpion error sending user message");
+			//Log.i(TAG, "Encrytpion error sending user message");
 		}
 		//this should be very quick since pruning was  done at activity start
 		prune();
@@ -403,7 +409,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
         //PendingIntent pi = PendingIntent.getActivity(this, 0,
        //     new Intent(this, ThreadActivity.class), 0);                
         SmsManager sms = SmsManager.getDefault();
-        Log.i(TAG, "Sending message:" + message);
+        //Log.i(TAG, "Sending message:" + message);
         sms.sendTextMessage(phoneNumber, null, message, null, null);        
     } 
 
@@ -477,7 +483,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 		Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 	    cipher.init(Cipher.ENCRYPT_MODE, publicKey);
 	    
-	    Log.i(TAG, "Sending key: " + contact.getMyKey());
+	    //Log.i(TAG, "Sending key: " + contact.getMyKey());
 	    byte[] encrypted = cipher.doFinal(contact.getMyKey().getBytes());
     	sendSMS(originatingAddress, "<SSMS> ACK " + asHex(encrypted));//reply with the key we will use to encrypt our SMS
     	ExchangeActivity ex = ExchangeActivity.getInstance();
@@ -501,7 +507,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
     			sendRequestSMS(contact, originatingAddress);
     		}
     		else{
-    			Log.i(TAG, "possible message loop detected, restarting service");
+    			//Log.i(TAG, "possible message loop detected, restarting service");
     			throw new Exception("ERROR: possible message loop detected");
     		}
     	}else
@@ -512,7 +518,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			Log.e(TAG, "Could not get public key from message - aborting");
+			//Log.e(TAG, "Could not get public key from message - aborting");
 			return;
 		}
 		
@@ -522,9 +528,9 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 		try {
 			Dao<Contact, Integer> cDao = getHelper().getContactDao();
 			Key key = generateKey();
-			Log.i("SSMSServiceKEY", bytesToString(key.getEncoded()));
-			Log.i("SSMSServiceKEY", asHex(key.getEncoded()));
-			Log.i("SSMSServiceKEY", bytesToString(hexStringToByteArray(asHex(key.getEncoded()))));
+			//Log.i("SSMSServiceKEY", bytesToString(key.getEncoded()));
+			//Log.i("SSMSServiceKEY", asHex(key.getEncoded()));
+			//Log.i("SSMSServiceKEY", bytesToString(hexStringToByteArray(asHex(key.getEncoded()))));
 			cDao.refresh(contact);
 			contact.setMyKey(asHex(key.getEncoded()));
 			cDao.update(contact);
@@ -601,7 +607,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 		}catch(Exception e)
 		{
 			e.printStackTrace();
-			Log.e(TAG,"Error parsing ACK message");
+			//Log.e(TAG,"Error parsing ACK message");
 		}
 	}
 	
@@ -630,7 +636,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 				cDao.refresh(contact);
 			}else if(result.size() > 1)
 			{
-				Log.e(TAG, "FATAL: multiple contacts found for lookup key: " + lookupKey);
+				//Log.e(TAG, "FATAL: multiple contacts found for lookup key: " + lookupKey);
 				return null;
 			}else{
 				contact = result.get(0);
@@ -654,7 +660,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 			contact = contacts.get(0);
 		else
 		{
-			Log.e(TAG, "Could not find contact for " + originatingAddress);
+			//Log.e(TAG, "Could not find contact for " + originatingAddress);
 			return;
 		}
 			
@@ -678,7 +684,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 		Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 	    cipher.init(Cipher.ENCRYPT_MODE, publicKey);
 	    
-	    Log.i(TAG, "Sending key: " + contact.getMyKey());
+	    //Log.i(TAG, "Sending key: " + contact.getMyKey());
 	    byte[] encrypted = cipher.doFinal(contact.getMyKey().getBytes());
     	sendSMS(originatingAddress, "<SSMS> ACK " + asHex(encrypted));//reply with the key we will use to encrypt our SMS
     	ExchangeActivity ex = ExchangeActivity.getInstance();
@@ -691,7 +697,7 @@ public class SSMSService extends OrmLiteBaseService<DBHelper> {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			Log.e(TAG, "Could not get public key from message - aborting");
+			//Log.e(TAG, "Could not get public key from message - aborting");
 			return;
 		}
 	}

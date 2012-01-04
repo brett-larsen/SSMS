@@ -40,11 +40,11 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
 		try {
 			
-			Log.i(DBHelper.class.getName(), "onCreate");
+			//Log.i(DBHelper.class.getName(), "onCreate");
 			TableUtils.createTable(connectionSource, Contact.class);
 			TableUtils.createTable(connectionSource, Message.class);
 		} catch (SQLException e) {
-			Log.e(DBHelper.class.getName(), "Can't create database", e);
+			//Log.e(DBHelper.class.getName(), "Can't create database", e);
 			throw new RuntimeException(e);
 		}
 
@@ -57,13 +57,13 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion)
 	{
 		try {
-			Log.i(DBHelper.class.getName(), "onUpgrade");
+			//Log.i(DBHelper.class.getName(), "onUpgrade");
 			TableUtils.dropTable(connectionSource, Contact.class, true);
 			TableUtils.dropTable(connectionSource, Message.class, true);
 			// after we drop the old databases, we create the new ones
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {
-			Log.e(DBHelper.class.getName(), "Can't drop databases", e);
+			//Log.e(DBHelper.class.getName(), "Can't drop databases", e);
 			throw new RuntimeException(e);
 		}
 	}

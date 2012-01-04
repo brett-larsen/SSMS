@@ -93,7 +93,7 @@ public class SSMSActivity extends OrmLiteBaseListActivity<DBHelper> implements O
 
     	contactList = new ArrayList<Contact>();
         getContacts();
-        Log.e("SSMSActivity", "Contacts:" + contactList.size());
+        //Log.e("SSMSActivity", "Contacts:" + contactList.size());
         setListAdapter(new ArrayAdapter<String>(this, R.layout.list_item, contacts));
         
         ListView lv = getListView();
@@ -137,7 +137,7 @@ public class SSMSActivity extends OrmLiteBaseListActivity<DBHelper> implements O
 		int count = 15, x=0;
 		if(service == null)
 		{
-			Log.i("SSMSActivity", "Service null");
+			//Log.i("SSMSActivity", "Service null");
 			do{
 
 				service=SSMSService.getInstance();
@@ -171,10 +171,10 @@ public class SSMSActivity extends OrmLiteBaseListActivity<DBHelper> implements O
 		}
         if(contact == null)
         {
-        	Log.i("SSMSA", "contabct null");
+        	//Log.i("SSMSA", "contabct null");
         }
-        Log.i("SSMSActivity", "position: " + position);
-        Log.i("SSMSActivity", "Contact selected: " + contact.getDisplayName(this));
+        //Log.i("SSMSActivity", "position: " + position);
+        //Log.i("SSMSActivity", "Contact selected: " + contact.getDisplayName(this));
         getHelper().setSelectedContact(contact);
 	        Intent intent = new Intent(this, ThreadActivity.class);
 	        this.startActivity(intent);
@@ -232,10 +232,11 @@ public class SSMSActivity extends OrmLiteBaseListActivity<DBHelper> implements O
 	        	DataInputStream in = new DataInputStream(fIn);
 	            BufferedReader br = new BufferedReader(new InputStreamReader(in));
 	            password = br.readLine();
-	            Log.i("SSMS", "password: " + password);
+	            //Log.i("SSMS", "password: " + password);
 	            br.close();
 	            input = new EditText(this);
-	            input.setInputType( InputType.TYPE_TEXT_VARIATION_PASSWORD);
+	            input.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+	            //input.set
 	            new AlertDialog.Builder(this)
 	            .setTitle("Enter Password")
 	            .setMessage("Enter the password or clear all the data stored in this app (" + (10-attemptCount) + " tries remaining):")
@@ -273,7 +274,7 @@ public class SSMSActivity extends OrmLiteBaseListActivity<DBHelper> implements O
 			hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
 		}
 		//String foo = messageDigest.toString();
-		Log.i("SSMS", "Entered: " + hexString.toString());
+		//Log.i("SSMS", "Entered: " + hexString.toString());
 		if(hexString.toString().equals(password))
 		{
 			//password good

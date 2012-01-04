@@ -7,7 +7,7 @@
     <ListView
         android:id="@+id/exchangeList"
         android:layout_width="match_parent"
-        android:layout_height="288dp"
+        android:layout_height="0dip"
         android:layout_weight="0.45" >
     </ListView>
 
@@ -15,27 +15,21 @@
         android:id="@+id/exchangeNumberSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.45"
+        android:layout_weight=".05"
         android:prompt="@string/number_prompt" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.45" >
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/start_exchange" />
-
-    </LinearLayout>
-
+        android:layout_weight=".05"
+        android:text="@string/start_exchange" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/exchange_info" />
+        android:text="@string/exchange_info"
+        android:textSize="16sp" />
 
 </LinearLayout>

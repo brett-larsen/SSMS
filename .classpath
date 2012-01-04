@@ -4,16 +4,9 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="lib/ormlite-android-4.31.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/SSMS/lib/ormlite-android-4.31-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/ormlite-core-4.31.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/SSMS/lib/ormlite-core-4.31-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="lib/GoogleAdMobAdsSdk-4.3.1.jar"/>
+	<classpathentry kind="lib" path="libs/ormlite-android-4.31.jar"/>
+	<classpathentry kind="lib" path="libs/ormlite-core-4.31.jar"/>
+	<classpathentry kind="lib" path="libs/android-support-v4.jar"/>
+	<classpathentry kind="lib" path="libs/GoogleAdMobAdsSdk-4.3.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

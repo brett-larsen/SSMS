@@ -128,7 +128,7 @@ public class Contact {
 		
 		if(!managedCursor.moveToFirst())
 		{
-			Log.e("SSMS", "Contact no longer in phone - removing from database");
+			//Log.e("SSMS", "Contact no longer in phone - removing from database");
 			return null;
 		}else
 		{

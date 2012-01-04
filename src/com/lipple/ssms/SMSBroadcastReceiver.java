@@ -20,7 +20,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		
-        Log.i(TAG, "Intent recieved: " + intent.getAction());
+        //Log.i(TAG, "Intent recieved: " + intent.getAction());
 
             Bundle bundle = intent.getExtras();
             if (bundle != null) {
@@ -30,7 +30,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                     messages[i] = SmsMessage.createFromPdu((byte[])pdus[i]);
                 }
                 if (messages.length > -1) {
-                    Log.i(TAG, "Message recieved: " + messages[0].getMessageBody());
+                    //Log.i(TAG, "Message recieved: " + messages[0].getMessageBody());
                 }
                 String message = messages[0].getMessageBody();
                 
@@ -41,26 +41,26 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
             		SSMSService service = SSMSService.getInstance();
             		
                 	message = message.substring(7);
-                	Log.i(TAG, "Message: " + message);
+                	//Log.i(TAG, "Message: " + message);
                 	if(message.startsWith("MSG"))
                 	{            		
                 		message = message.substring(3);
-                		Log.i(TAG, "Message: " + message);
+                		//Log.i(TAG, "Message: " + message);
                 		service.receiveMessage(context, messages[0].getOriginatingAddress(),message );
                 	}else if(message.startsWith("AREQ")) //they sent us their key!
                 	{
                 		message = message.substring(4);
-                		Log.i(TAG, "Message: " + message);
+                		//Log.i(TAG, "Message: " + message);
                 		service.processAckReq(context, messages[0].getOriginatingAddress(), message);
                 	}else if(message.startsWith("REQ"))//they are requesting our key
                 	{
                 		message = message.substring(3);
-                		Log.i(TAG, "Message: " + message);
+                		//Log.i(TAG, "Message: " + message);
                 		service.processRequestMessage(context, messages[0].getOriginatingAddress(), message);
                 	}else if(message.startsWith("ACK"))
                 	{
                 		message = message.substring(3);
-                		Log.i(TAG, "coded message: " + message);
+                		//Log.i(TAG, "coded message: " + message);
                 		service.processAcknowledge(context, messages[0].getOriginatingAddress(), message);
                 	}
                 		

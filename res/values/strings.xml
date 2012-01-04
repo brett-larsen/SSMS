@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, SSMSActivity!</string>
-    <string name="app_name">SSMS</string>
+    <string name="app_name">Secured SMS</string>
     <string name="load">Loading Contacts</string>
     <string name="send_button">Send</string>
     <string name="start_exchange">Exchange Keys</string>

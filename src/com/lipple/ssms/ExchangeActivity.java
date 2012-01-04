@@ -38,7 +38,7 @@ public class ExchangeActivity extends OrmLiteBaseActivity<DBHelper> implements O
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.exchange);
 
-        Log.i("ExchangeActivity", "onCreate");
+        //Log.i("ExchangeActivity", "onCreate");
         selectedContact = getHelper().getSelectedContact();
         
         setupView();
@@ -54,7 +54,7 @@ public class ExchangeActivity extends OrmLiteBaseActivity<DBHelper> implements O
         //fin
         if(spinner == null)
         {
-        	Log.i("SSMSExchange", "Spinner is null!!!");
+        	//Log.i("SSMSExchange", "Spinner is null!!!");
         }
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, this.selectedContact.getNumber(this)));
         

@@ -48,7 +48,7 @@ public class ThreadActivity extends OrmLiteBaseActivity<DBHelper> implements OnC
     	instance=this;
         super.onCreate(savedInstanceState);
         
-        Log.i("ThreadActivity", "onCreate");
+        //Log.i("ThreadActivity", "onCreate");
         selectedContact = getHelper().getSelectedContact();
         try {
 			getHelper().getContactDao().refresh(selectedContact);
@@ -118,7 +118,7 @@ public class ThreadActivity extends OrmLiteBaseActivity<DBHelper> implements OnC
 			Dao<Message,Integer> mDao = getHelper().getMessageDao();
 			if(selectedContact == null)
 			{
-				Log.i("ThreadActivity", "selectedContact null");
+				//Log.i("ThreadActivity", "selectedContact null");
 			}
 			List<Message> messageList = mDao.queryBuilder().where().eq("from_id", selectedContact.getId()).or().eq("to_id", selectedContact.getId()).query();
 			
